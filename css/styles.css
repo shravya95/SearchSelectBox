@@ -1,9 +1,10 @@
 :root {
-  --menu-border-color: #d7d7e0;
-  --option-background-color: #f7f8fd;
-  --container-body-width: 300px;
+  --container-width: 280px;
+  --expanded-container-width: 380px;
   --search-icon-width: 20px;
   --cross-icon-width: 10px;
+  --menu-border-color: #d7d7e0;
+  --option-background-color: #f6fbfd;
   --cross-icon-color: #82828c;
   --highlight-text-color: #598ee7;
 }
@@ -14,11 +15,16 @@ body {
   font-size: 13px;
 }
 
-.searchBox {
+.search-box {
   position: relative;
   box-shadow: 0 1px 4px rgba(119, 159, 211, 0.3), 0 0 40px rgba(133, 191, 211, 0.1);
   margin: 30px auto;
-  width: var(--container-body-width);
+  width: var(--container-width);
+  transition: all .5s;
+}
+
+.search-box--expanded {
+  width: var(--expanded-container-width);
 }
 
 .searchInputContainer {
