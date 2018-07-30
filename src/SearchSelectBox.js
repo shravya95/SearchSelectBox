@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import cx from 'classnames';
 import _last from 'lodash/last';
 
 import SearchInput from './components/SearchInput';
@@ -25,6 +26,7 @@ const EMPTY_ARRAY = [],
     ...INIT_SEARCH_RESULTS,
     errorMessage: undefined,
     hasSavedOption: false, // to check for any previous selected suggestions
+    isSearchInputFocused: false,
     loading: false,
     searchQuery: '',
     selectedOptions: EMPTY_ARRAY, // storing any suggestions selected from the dropdown
@@ -53,6 +55,7 @@ class SearchSelectBox extends PureComponent {
   handBlur = () => {
     this.setState({
       ...INIT_SEARCH_RESULTS,
+      isSearchInputFocused: false,
       selectedOptions: EMPTY_ARRAY,
     });
   }
@@ -61,7 +64,16 @@ class SearchSelectBox extends PureComponent {
     Clearing text when clicked on cross button
    */
   handleClearText = () => {
-    this.setState(INITIAL_STATE);
+    this.setState({
+      ...INITIAL_STATE,
+      isSearchInputFocused: true, // need to keep input box focused
+    });
+  }
+
+  handleInputFocus = () => {
+    this.setState({
+      isSearchInputFocused: true,
+    });
   }
 
   handleRequestError = () => {
@@ -172,12 +184,15 @@ class SearchSelectBox extends PureComponent {
   }
 
   renderSearchInput() {
+    const { state } = this;
     return (
       <SearchInput
+        clearText={this.handleClearText}
+        isFocused={state.isSearchInputFocused}
         onBlur={this.handBlur}
         onChange={this.handleSearch}
-        clearText={this.handleClearText}
-        value={this.state.searchQuery}
+        onFocus={this.handleInputFocus}
+        value={state.searchQuery}
       />
     );
   }
@@ -185,7 +200,7 @@ class SearchSelectBox extends PureComponent {
   render() {
     return (
       <div
-        className="searchBox"
+        className={cx('search-box', { 'search-box--expanded': this.state.isSearchInputFocused })}
         onKeyDown={this.handleKeyDown}
       >
         {this.renderSearchInput()}

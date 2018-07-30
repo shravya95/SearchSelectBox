@@ -22,13 +22,15 @@ class SearchInput extends PureComponent {
       <div className="searchInputContainer">
         <img className="searchIcon" src={SEARCH_ICONS_URL} />
         <input
-          autoFocus
+          className="searchInput"
+          onChange={this.onSearchQueryChange}
+          onFocus={props.onFocus}
+          onBlur={props.onBlur}
           type="text"
           id="search-users"
           placeholder='Search...'
           value={props.value}
-          onChange={this.onSearchQueryChange}
-          className="searchInput"
+          autoFocus={props.isFocused}
         />
         {this.renderClearIcon()}
       </div>
@@ -38,7 +40,10 @@ class SearchInput extends PureComponent {
 
 SearchInput.propTypes = {
   className: PropTypes.string,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  isFocused: PropTypes.bool,
   clearText: PropTypes.func,
   value: PropTypes.string,
 };
