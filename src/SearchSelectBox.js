@@ -208,6 +208,6 @@ class SearchSelectBox extends PureComponent {
       </div>
     );
   }
-};
+}
 
 export default SearchSelectBox;
