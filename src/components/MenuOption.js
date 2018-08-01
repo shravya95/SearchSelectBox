@@ -8,13 +8,18 @@ class MenuOption extends React.Component {
     this.props.onMouseOver(index);
   }
 
+  handleClickOption = event => {
+    event.preventDefault(); // so that we can avoid triggering onBlur of inputBox
+    this.props.onMouseDown();
+  }
+
   render() {
     const { props } = this;
 
     return (
       <div
         className={cx('userOption', { 'is-focused': props.optionIndex === props.focusedOptionIndex })}
-        onMouseDown={props.onMouseDown}
+        onMouseDown={this.handleClickOption}
         onMouseOver={this.handleFocusOption}
         data-index={props.optionIndex}
       >

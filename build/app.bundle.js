@@ -20742,8 +20742,6 @@ var SearchSelectBox = function (_PureComponent) {
   return SearchSelectBox;
 }(_react.PureComponent);
 
-;
-
 exports.default = SearchSelectBox;
 
 /***/ }),
@@ -21696,6 +21694,9 @@ var MenuOption = function (_React$Component) {
       var index = event.currentTarget.dataset.index;
 
       _this.props.onMouseOver(index);
+    }, _this.handleClickOption = function (event) {
+      event.preventDefault(); // so that we can avoid triggering onBlur of inputBox
+      _this.props.onMouseDown();
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -21709,7 +21710,7 @@ var MenuOption = function (_React$Component) {
         'div',
         {
           className: (0, _classnames2.default)('userOption', { 'is-focused': props.optionIndex === props.focusedOptionIndex }),
-          onMouseDown: props.onMouseDown,
+          onMouseDown: this.handleClickOption,
           onMouseOver: this.handleFocusOption,
           'data-index': props.optionIndex
         },
